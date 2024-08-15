@@ -1,0 +1,92 @@
+Respuestas a preguntas
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+Historia de Usuario 1: Configuración Inicial y Estructura del Proyecto
+
+1. Configuración del Proyecto
+
+i. ¿Qué propósito cumple el archivo main.ts en un proyecto NestJS y por qué es crucial en la configuración inicial?
+
+R/: El archivo main.ts en un proyecto NestJS es el punto de entrada de la aplicación. Su propósito principal es configurar e iniciar el servidor.
+
+Se llama a NestFactory.create() para crear una instancia de la aplicación NestJS, luego se pueden agregar configuraciones adicionales, como middleware, filtros de excepciones, etc. app.listen() para hacer que el servidor escuche en un puerto específico.
+
+ii. ¿Qué diferencia existe entre app.module.ts y app.controller.ts? ¿Cómo se relacionan estos archivos con la modularidad y la estructura de la aplicación?
+
+R/: app.module.ts: Define el módulo raíz de la aplicación. Aquí se configuran y agrupan los componentes, como controladores y servicios, que forman parte de la aplicación. Es fundamental para la modularidad porque organiza el código en módulos y facilita la inyección de dependencias.
+
+app.controller.ts: Define como se manejan las rutas HTTP. Aquí se definen los métodos que responden a las solicitudes y retornan respuestas. reciben las peticiones y delegan el procesamiento a los servicios.
+
+Relación: El módulo (app.module.ts) incluye al controlador (app.controller.ts) como uno de sus componentes, lo que permite que NestJS gestione y dirija las solicitudes HTTP a los métodos correspondientes del controlador.
+
+2. Creación de Módulos Básicos
+
+i. ¿Por qué crees que es importante modularizar la aplicación separando funcionalidades en diferentes módulos? 
+
+R/: Modularizar una aplicación separando funcionalidades en diferentes módulos es importante 
+
+Organización: Facilita la estructura y el mantenimiento del código al agrupar funcionalidades relacionadas.
+Reutilización: Permite reutilizar y compartir módulos entre diferentes partes de la aplicación.
+Escalabilidad: Mejora la capacidad de escalar y extender la aplicación sin afectar otras partes.
+Desarrollo paralelo: Facilita el trabajo en equipo al permitir el desarrollo paralelo de módulos independientes.
+
+ii. ¿Cómo crees que afecta la modularidad al mantenimiento y escalabilidad de la aplicación?
+
+R/: La modularidad mejora el mantenimiento al permitir actualizaciones y correcciones en módulos específicos sin afectar el resto de la aplicación. También facilita la escalabilidad al permitir añadir o modificar funcionalidades de manera independiente, adaptándose a nuevas necesidades sin reestructurar toda la aplicación.
+
+iii. Despues de crear los archivos de los módulos, ¿qué archivos se generan y cómo se relacionan con los módulos creados?
+
+R/: se generan principalmente archivos de configuración como module.ts para definir el módulo y service.ts y/o controller.ts para sus servicios y controladores
+
+3. Implementación de Controladores
+
+i. ¿Qué sucede si defines incorrectamente un decorador en un controlador? ¿Cómo afecta esto a la funcionalidad del endpoint?
+
+R/: El endpoint correspondiente no funcionará como se espera. Esto puede resultar en errores de enrutamiento, respuestas incorrectas o incluso la imposibilidad de acceder al endpoint. El decorador incorrecto puede hacer que el controlador no se registre adecuadamente o que el método no maneje las solicitudes correctamente. Por ejemplo:
+
+Código no funciona como se espera: Si se define un decorador incorrectamente, el endpoint no responderá a las solicitudes esperadas. Por ejemplo, si usas @Post en lugar de @Get, las solicitudes GET a esa ruta no funcionarán, ya que ahora se espera una solicitud POST.
+
+Confusión en desarrolladores: Los desarrolladores pueden confundirse si el endpoint no responde como se espera. Esto puede llevar a problemas en el desarrollo y pruebas si no se revisa cuidadosamente la configuración/asignación de los decoradores.
+
+Confusión en clientes: Los clientes o usuarios de la API también pueden verse afectados, ya que intentarán acceder a la ruta usando el método HTTP incorrecto. Esto puede llevar a errores en la aplicación y una mala experiencia de usuario.
+
+ii. ¿Por qué es importante manejar rutas dinámicas (por ejemplo, @Get(':id')) en aplicaciones que interactúan con bases de datos?
+
+R/: son cruciales porque permiten acceder y manipular recursos específicos en las bases de datos utilizando identificadores únicos. Esto facilita la consulta, actualización, y eliminación de datos basados en parámetros específicos, mejora la flexibilidad y funcionalidad de la aplicación. 
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+Historia de Usuario 2: Implementación de la Lógica de Negocio y Seguridad
+
+1. Desarrollo de Servicios
+
+i. ¿Qué ventajas tiene manejar la lógica de negocio en servicios en lugar de controladores?
+
+R/: Manejar la lógica de negocio en servicios separa responsabilidades, facilitando la reutilización de código, la prueba unitaria, y el mantenimiento del sistema. Los controladores se enfocan en recibir las solicitudes y devolver respuestas, mientras que los servicios se encargan de procesar la lógica compleja, lo que mejora la organización y escalabilidad del código.
+
+ii. ¿Cómo se relaciona la inyección de dependencias con la modularidad y la capacidad de prueba de la aplicación?
+
+R/: La inyección de dependencias promueve la modularidad al desacoplar componentes, permitiendo que se puedan cambiar o reemplazar fácilmente. Esto mejora la capacidad de prueba, ya que facilita la sustitución de dependencias reales por simuladas (mocks) en los tests, aislando cada módulo y garantizando pruebas más precisas y controladas.
+
+2. Aplicación de Decoradores y Pipes
+
+i. ¿Por qué es crucial validar los datos de entrada en una aplicación que maneja transacciones financieras?
+
+R/: Es crucial validar los datos de entrada en una aplicación financiera para prevenir fraudes, evitar errores en transacciones, proteger la integridad de los datos y cumplir con normativas de seguridad, garantizando así la confiabilidad y seguridad de las operaciones.
+
+ii. ¿Qué podría suceder si un decorador está mal colocado o si no se aplican los pipes correctamente?
+
+R/: Si un decorador está mal colocado o no se aplican los pipes correctamente en NestJS, podría resultar en fallos de inyección de dependencias, errores en la validación o transformación de datos, y comportamientos inesperados en la lógica de la aplicación, comprometiendo su funcionalidad y seguridad.
+
+3. Configuración de Exception Filters
+
+i. ¿Cómo impacta el manejo adecuado de excepciones en la experiencia del usuario y en la seguridad de la aplicación?
+
+R/: Un manejo adecuado de excepciones mejora la experiencia del usuario al proporcionar mensajes claros y evitar caídas inesperadas, y refuerza la seguridad de la aplicación al prevenir la exposición de información sensible y manejar errores de manera controlada.
+
+ii. ¿Por qué es importante tener un manejo centralizado de excepciones en una aplicación NestJS?
+
+R/: Un manejo centralizado de excepciones en NestJS es importante porque garantiza una gestión consistente de errores, simplifica el código al evitar duplicación de lógica de manejo de errores y permite una respuesta uniforme y controlada a errores, mejorando así la robustez y mantenimiento de la aplicación.
